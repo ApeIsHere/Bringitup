@@ -2987,41 +2987,32 @@ function (_Slider) {
   }, {
     key: "nextSlide",
     value: function nextSlide() {
-      if (this.slides[1].tagName == "BUTTON" && this.slides[2].tagName == "BUTTON") {
-        this.container.appendChild(this.slides[0]); //slide
+      var _this2 = this;
 
-        this.container.appendChild(this.slides[1]); //btn
-
-        this.container.appendChild(this.slides[2]); //btn
-
-        this.decorizeSlides();
-      } else if (this.slides[1].tagName == "BUTTON") {
-        this.container.appendChild(this.slides[0]); //slide
-
-        this.container.appendChild(this.slides[1]); //btn
-
-        this.decorizeSlides();
-      } else {
-        this.container.appendChild(this.slides[0]);
-        this.decorizeSlides();
-      }
+      this.container.appendChild(this.slides[0]);
+      this.slides.forEach(function (slide) {
+        if (slide.tagName == "BUTTON") {
+          _this2.container.appendChild(slide);
+        }
+      });
+      this.decorizeSlides();
     }
   }, {
     key: "bindTriggers",
     value: function bindTriggers() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.next.addEventListener('click', function () {
-        return _this2.nextSlide();
+        return _this3.nextSlide();
       });
       this.prev.addEventListener('click', function () {
-        for (var i = _this2.slides.length - 1; i > 0; i--) {
-          if (_this2.slides[i].tagName !== 'BUTTON') {
-            var active = _this2.slides[i];
+        for (var i = _this3.slides.length - 1; i > 0; i--) {
+          if (_this3.slides[i].tagName !== 'BUTTON') {
+            var active = _this3.slides[i];
 
-            _this2.container.insertBefore(active, _this2.slides[0]);
+            _this3.container.insertBefore(active, _this3.slides[0]);
 
-            _this2.decorizeSlides();
+            _this3.decorizeSlides();
 
             break;
           }
@@ -3031,7 +3022,7 @@ function (_Slider) {
   }, {
     key: "init",
     value: function init() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.container.style.cssText = "\n        display: flex;\n        flex-wrap: wrap;\n        overflow: hidden;\n        align-items: flex-start;\n        ";
       this.bindTriggers();
@@ -3039,7 +3030,7 @@ function (_Slider) {
 
       if (this.autoplay) {
         setInterval(function () {
-          return _this3.nextSlide();
+          return _this4.nextSlide();
         }, 5000);
       }
     }
@@ -3166,7 +3157,6 @@ function (_Slider) {
     key: "plusSlides",
     value: function plusSlides(n) {
       this.showSlides(this.slideIndex += n);
-      console.log(this.slideIndex);
     }
   }, {
     key: "render",

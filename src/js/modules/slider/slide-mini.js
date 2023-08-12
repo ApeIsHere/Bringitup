@@ -25,27 +25,19 @@ export default class MiniSlider extends Slider {
     }
 
     nextSlide() {
-        if (this.slides[1].tagName == "BUTTON" && this.slides[2].tagName == "BUTTON") {
-            this.container.appendChild(this.slides[0]); //slide
-            this.container.appendChild(this.slides[1]); //btn
-            this.container.appendChild(this.slides[2]); //btn
-            this.decorizeSlides();
-        } else if (this.slides[1].tagName == "BUTTON") {
-            this.container.appendChild(this.slides[0]); //slide
-            this.container.appendChild(this.slides[1]); //btn
-            this.decorizeSlides();
-        } else {
-            this.container.appendChild(this.slides[0]);
-            this.decorizeSlides();
-        }
-
+        this.container.appendChild(this.slides[0])
+        this.slides.forEach(slide => {
+            if (slide.tagName == "BUTTON") {
+                this.container.appendChild(slide);
+            }
+        });
+        this.decorizeSlides();
     }
 
     bindTriggers() {
         this.next.addEventListener('click', () => this.nextSlide());
 
         this.prev.addEventListener('click', () => {
-
             for (let i = this.slides.length - 1; i > 0; i--) {
                 if (this.slides[i].tagName !== 'BUTTON') {
                     let active = this.slides[i];
@@ -54,8 +46,6 @@ export default class MiniSlider extends Slider {
                     break;
                 }
             }
-
-
         });
     }
 

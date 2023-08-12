@@ -44,7 +44,6 @@ export default class MainSlider extends Slider {
 
     plusSlides(n) {
         this.showSlides(this.slideIndex += n);
-        console.log(this.slideIndex);
     }
 
     render() {

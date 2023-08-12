@@ -3027,11 +3027,23 @@ function (_Slider) {
       this.container.style.cssText = "\n        display: flex;\n        flex-wrap: wrap;\n        overflow: hidden;\n        align-items: flex-start;\n        ";
       this.bindTriggers();
       this.decorizeSlides();
+      var paused = false;
+      var elements = [this.container, this.next, this.prev];
 
       if (this.autoplay) {
-        setInterval(function () {
+        paused = setInterval(function () {
           return _this4.nextSlide();
         }, 5000);
+        elements.forEach(function (elem) {
+          elem.addEventListener('mouseenter', function () {
+            clearInterval(paused);
+            elem.addEventListener('mouseleave', function () {
+              paused = setInterval(function () {
+                return _this4.nextSlide();
+              }, 5000);
+            });
+          });
+        });
       }
     }
   }]);

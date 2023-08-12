@@ -60,8 +60,24 @@ export default class MiniSlider extends Slider {
         this.bindTriggers();
         this.decorizeSlides();
 
+        let paused = false;
+        const elements = [this.container, this.next, this.prev];
+        
         if (this.autoplay) {
-            setInterval(() => this.nextSlide(), 5000);
+            paused = setInterval(() => this.nextSlide(), 5000);
+           
+            elements.forEach(elem => {
+                elem.addEventListener('mouseenter', () => {
+                    clearInterval(paused);
+                elem.addEventListener('mouseleave', () => {
+                    paused = setInterval(() => this.nextSlide(), 5000);
+                });
+            });
+        });
         }
+
+     
+
+        
     }
 }
